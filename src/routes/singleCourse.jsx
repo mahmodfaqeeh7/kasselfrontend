@@ -56,6 +56,7 @@ export const SingleCourse = () => {
               ,{
                 headers: {'Authorization': `Bearer ${users.token}`},
               }).then(
+                //TODO : on join add id of course to list and save it on local storage so we can then check if its joined or not - dont forget to remove on logout
                 console.log('done'),
                 setJoined(true),
                 console.log(users),
