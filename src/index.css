@@ -513,17 +513,15 @@ ul.books h3 {
 
 
 
-
-
-
 .card {
   padding: 10px;
-  width: 330px;
+  width: 100%;
+  max-width: 330px;
   min-height: 370px;
   border-radius: 20px;
   background: #212121;
   box-shadow: 5px 5px 8px #1b1b1b,
-             -5px -5px 8px #272727;
+              -5px -5px 8px #272727;
   transition: 0.4s;
 }
 
@@ -538,36 +536,50 @@ ul.books h3 {
   margin: 15px 0 0 10px;
 }
 
-.card-image {
-  min-height: 170px;
-  background-color: #313131;
-  border-radius: 15px;
-  background: #313131;
-  box-shadow: inset 5px 5px 3px #2f2f2f,
-            inset -5px -5px 3px #333333;
-}
-
 .card-body {
   margin: 13px 0 0 10px;
   color: rgb(184, 184, 184);
   font-size: 15px;
+  display: -webkit-box;
+  -webkit-line-clamp: 4; /* Adjust this number to set the maximum number of lines */
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-
-
 
 .by-name {
   font-weight: 700;
 }
-  /* App.css */
 
-  
+.card-container {
+  margin-top: 3vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  flex-wrap: wrap; /* Allow wrapping */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
   .card-container {
-    margin-top: 3vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 30px; /* Adjust the gap between cards as needed */
+    flex-direction: column; /* Stack cards vertically on smaller screens */
+    align-items: stretch; /* Stretch cards to full width */
   }
+
+  .card {
+    width: 90%; /* Reduce card width */
+    margin: 10px auto; /* Center cards with some margin */
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    width: 100%; /* Full width for very small screens */
+    margin: 5px 0; /* Less margin */
+  }
+}
+
   
   .button {
     --color: #00A97F;

@@ -36,7 +36,10 @@ const Profile = () => {
                 if(users.isTeacher)
                     {
                         try {
-                            const response = await axios.get(`http://localhost:8000/api/courses/teacheronly/${users.id}`).then(response => 
+                            const response = await axios.get(`http://localhost:8000/api/courses/teacheronly/${users.id}`,{
+                                headers: {'Authorization': `Bearer ${users.token}`},
+                              }
+                            ).then(response => 
                             {setIsLoading(false),
                             setData(response.data), console.log(data)
                             //setcourses()
@@ -73,14 +76,17 @@ return (<>
            ) : error ? (
                <p>{error}</p>
            ) : (
-               <ul className="books">
-                   {data.mycourses.map((item) => (
+            <ul className="books">
+            <div className="card-container mx-4">
+            {data.mycourses.map((item) => (
                        <li key={item._id}>
                            <CourseCard id={item._id} title={item.title} description={item.description} />
                        </li>
                    ))
                    }
-               </ul>
+            </div>
+
+        </ul>
            )}
    
        </>)}

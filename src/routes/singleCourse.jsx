@@ -80,8 +80,7 @@ export const SingleCourse = () => {
             <div className='bookdetails d-block'>
                 <div className='col-1'>
                     {users.isTeacher && users.id == data.CreatedBy 
-                    && (<Link  to={`/editcourse/${data._id}`}><button className="button">Edit</button>
-</Link>)}
+                    && (<Link  to={`/editcourse/${data._id}`}><button className="button">Edit</button></Link>)}
                 </div>
 
                 <table className='table mt-3'>
@@ -117,8 +116,7 @@ export const SingleCourse = () => {
 
             </div>
             {users && !users.isTeacher && !joined &&
-            (<div><button onClick={handlejoin} id="bottone5">Join the course</button>
-</div> )
+            (<div style={{display : users && !users.isTeacher && !joined}}><button onClick={handlejoin} id="bottone5">Join the course</button></div> )
             }
         </div>
     )

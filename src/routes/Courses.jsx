@@ -18,10 +18,10 @@ export const Courses = () => {
                 let url = baseUrl
 
 
-                const response = await fetch(url,{
-                    headers: {'Authorization': `Bearer ${users.token}`},
-                  });
-          
+                const response = await fetch(url, {
+                    headers: { 'Authorization': `Bearer ${users.token}` },
+                });
+
                 if (!response.ok) {
                     throw new Error('Failed to fetch data')
                 }
@@ -53,7 +53,7 @@ export const Courses = () => {
 
 
         {users && !users.isTeacher && (<>
-           
+
 
             <h2>Available Courses</h2>
 
@@ -63,18 +63,20 @@ export const Courses = () => {
                 <p>{error}</p>
             ) : (
                 <ul className="books">
+                <div className="card-container mx-4">
                     {data.map((item) => (
                         <li key={item._id}>
                             <CourseCard id={item._id} title={item.title} description={item.description} />
                         </li>
-                    ))
-                    }
-                </ul>
+                    ))}
+                </div>
+
+            </ul>
             )}
 
         </>)}
         {users && users.isTeacher && (<>
-            <button onClick={()=>nav('/createcourse')
+            <button onClick={() => nav('/createcourse')
             } class="normalbutton full-rounded">
                 <span>Create Course</span>
             </button>
@@ -87,11 +89,14 @@ export const Courses = () => {
                 <p>{error}</p>
             ) : (
                 <ul className="books">
-                    {data.map((item) => (
-                        <li key={item._id}>
-                            <CourseCard id={item._id} title={item.title} description={item.description} />
-                        </li>
-                    ))}
+                    <div className="card-container mx-4">
+                        {data.map((item) => (
+                            <li key={item._id}>
+                                <CourseCard id={item._id} title={item.title} description={item.description} />
+                            </li>
+                        ))}
+                    </div>
+
                 </ul>
             )}
 

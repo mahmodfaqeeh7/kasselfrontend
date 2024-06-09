@@ -1,41 +1,56 @@
-import React from 'react'
-import { Link } from "react-router-dom";
+import React, { useState } from 'react';
+import { Link , useNavigate } from "react-router-dom";
 import logo from "../assests/logo.png";
-import '../components/header.css'
+import '../components/header.css';
 
 export const Header = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
 
-  const users = JSON.parse(localStorage.getItem('user'))
+  const users = JSON.parse(localStorage.getItem('user'));
+  const nav = useNavigate()
   const handleClick = () => {
-    localStorage.removeItem('user')
+    localStorage.removeItem('user');
+    nav('/')
+  };
 
-    // dispatch logout action
-    window.location.reload(false);
-    
-  }
-
-
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+    // Toggle class on body to push down content
+    if (!menuOpen) {
+      //document.body.classList.add('content-push-down');
+    } else {
+      document.body.classList.remove('content-push-down');
+    }
+  };
 
   return (
     <header>
-    <Link to="/reg" className="logo">
-      <img src={logo} alt="ReactJs" /> KasselPortal
-    </Link>
+      <Link to="/" className="logo">
+        <img src={logo} alt="ReactJs" /> KasselPortal
+      </Link>
 
-    <nav>
-    
-    {users && (<>
-    
-    <Link to="/">Home</Link>
-      <Link to="/courses">Courses</Link>
-      <Link to="/profile">Profile</Link>
-      <Link to="/about">About</Link>
-   
-            <div>
-              <button onClick={handleClick}>Log out</button>
+      <nav>
+        {users && (
+          <>
+            <div className={`nav-links ${menuOpen ? 'active' : ''}`}>
+              <Link to="/" onClick={toggleMenu}>Home</Link>
+              <Link to="/courses" onClick={toggleMenu}>Courses</Link>
+              <Link to="/profile" onClick={toggleMenu}>Profile</Link>
+              <Link to="/about" onClick={toggleMenu}>About</Link>
+              <div>
+                <button onClick={() => { handleClick(); toggleMenu(); }}>Log out</button>
+              </div>
             </div>
-          </>  )} 
-          </nav>
-  </header>
-  )
-}
+            <div className="hamburger" onClick={toggleMenu}>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </>
+        )}
+      </nav>
+    </header>
+  );
+};
+
+export default Header;
