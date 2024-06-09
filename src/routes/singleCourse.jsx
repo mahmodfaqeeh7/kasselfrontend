@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useState, useEffect } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams , useNavigate } from 'react-router-dom'
 
 export const SingleCourse = () => {
 
@@ -9,7 +9,7 @@ export const SingleCourse = () => {
     const urlSlug = useParams()
     const [joined, setJoined] = useState(false)
     const [mine, setMine] = useState(false)
-
+    const nav = useNavigate()
     const baseUrl = `http://localhost:8000/api/courses/${urlSlug.id}`
     useEffect(() => {
 
@@ -58,7 +58,8 @@ export const SingleCourse = () => {
               }).then(
                 console.log('done'),
                 setJoined(true),
-                console.log(users)
+                console.log(users),
+                nav('/profile')
               )
 
         } catch (error) {
@@ -116,7 +117,7 @@ export const SingleCourse = () => {
 
             </div>
             {users && !users.isTeacher && !joined &&
-            (<div style={{display : users && !users.isTeacher && !joined}}><button onClick={handlejoin} id="bottone5">Join the course</button></div> )
+            (<div style={{display : false || (users && !users.isTeacher && !joined)}}><button onClick={handlejoin} id="bottone5">Join the course</button></div> )
             }
         </div>
     )
