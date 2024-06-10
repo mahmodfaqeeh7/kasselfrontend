@@ -52,7 +52,7 @@ export const Home = () => {
 
 
       console.log(res)
-      nav('/books')
+      nav('/')
     } catch (error) {
       console.log("eroorererer")
     }
@@ -79,7 +79,7 @@ export const Home = () => {
       setIsLoading(false)
       window.location.reload()
 
-      nav('/books')
+      nav('/')
 
     } catch (error) {
 
