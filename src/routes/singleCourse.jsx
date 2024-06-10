@@ -130,6 +130,7 @@ export const SingleCourse = () => {
             </div>
             {users && !users.isTeacher && !joined &&
             (<div style={{display : false || (users && !users.isTeacher && !joined)}}><button onClick={handlejoin} id="bottone5">Join the course</button></div> )
+            (<div><button onClick={handlejoin} id="bottone5">Join the course</button></div> )
             }
         </div>
     )
