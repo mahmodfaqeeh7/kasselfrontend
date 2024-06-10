@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useState, useEffect } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams , useNavigate } from 'react-router-dom'
 
 export const SingleCourse = () => {
 
@@ -9,7 +9,7 @@ export const SingleCourse = () => {
     const urlSlug = useParams()
     const [joined, setJoined] = useState(false)
     const [mine, setMine] = useState(false)
-
+    const nav = useNavigate()
     const baseUrl = `http://localhost:8000/api/courses/${urlSlug.id}`
     useEffect(() => {
 
@@ -46,24 +46,37 @@ export const SingleCourse = () => {
 
     const handlejoin = async () => {
         try {
-            console.log(users.id)  
-            console.log(urlSlug.id)            
-          
+           
             const studentid = users.id
             const response = await axios.put(`http://localhost:8000/api/courses/addcourse/${studentid}`, {
                 courseid: urlSlug.id , 
               }
               ,{
                 headers: {'Authorization': `Bearer ${users.token}`},
-              }).then(
-                console.log('done'),
+              }).then((res) =>
+                {
+                    if(res.status  == 404)
+                        {
+                            console.log(res.data)
+                            alert(err =>'Error : '+ res.data +err.message)
+                        }
+                 console.log('done'),
                 setJoined(true),
-                console.log(users)
-              )
+                nav('/profile')  
+                }
+                
+              ).catch((error)=> {
+                console.log(error.response.data)
 
+                 if(error.response.status  == 404)
+                {
+                    alert(`Error :  ${error.response.data} `)
+                }
+              }
+            )
         } catch (error) {
-            console.log(error)
 
+           
         }
     }
 
@@ -116,7 +129,7 @@ export const SingleCourse = () => {
 
             </div>
             {users && !users.isTeacher && !joined &&
-            (<div style={{display : users && !users.isTeacher && !joined}}><button onClick={handlejoin} id="bottone5">Join the course</button></div> )
+            (<div style={{display : false || (users && !users.isTeacher && !joined)}}><button onClick={handlejoin} id="bottone5">Join the course</button></div> )
             }
         </div>
     )
