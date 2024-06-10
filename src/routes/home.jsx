@@ -67,6 +67,8 @@ export const Home = () => {
       setError(null)
 
       const response = await ax.post('http://localhost:8000/api/users/signup', signUpForm)
+      .catch(err => alert(`error , invailid  - : ${err.message}` ))
+
 
 
       localStorage.setItem('user', JSON.stringify(response.data))

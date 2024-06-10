@@ -53,6 +53,7 @@ export const SingleCourse = () => {
               }
               ,{
                 headers: {'Authorization': `Bearer ${users.token}`},
+<<<<<<< HEAD
               }).then((res) =>
                 {
                     if(res.status  == 404)
@@ -67,6 +68,15 @@ export const SingleCourse = () => {
                 
               ).catch((error)=> {
                 console.log(error.response.data)
+=======
+              }).then(
+                //TODO : on join add id of course to list and save it on local storage so we can then check if its joined or not - dont forget to remove on logout
+                console.log('done'),
+                setJoined(true),
+                console.log(users),
+                nav('/profile')
+              )
+>>>>>>> ac0b1c62a4555f84e2a4c27006a6864776cf1bbe
 
                  if(error.response.status  == 404)
                 {
@@ -130,8 +140,7 @@ export const SingleCourse = () => {
             </div>
             {users && !users.isTeacher && !joined &&
             (<div style={{display : false || (users && !users.isTeacher && !joined)}}><button onClick={handlejoin} id="bottone5">Join the course</button></div> )
-            (<div><button onClick={handlejoin} id="bottone5">Join the course</button></div> )
-            }
+          }
         </div>
     )
 }
